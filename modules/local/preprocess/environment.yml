@@ -5,3 +5,6 @@ channels:
 dependencies:
 - bioconda::bioconductor-illuminahumanmethylationepicmanifest=0.3.0
 - bioconda::bioconductor-minfi=1.48.0
+- bioconda::bioconductor-illuminahumanmethylation450kmanifest=0.4.0
+- bioconda::bioconductor-IlluminaHumanMethylation450kanno.ilmn12.hg19=0.6.1
+- anaconda::libopenblas=0.3.3
