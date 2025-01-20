@@ -1,7 +1,0 @@
-sample_id,group,age,bmi_cat
-GSM1075838,control,34,1
-GSM1075839,control,34,1
-GSM1075840,control,34,1
-GSM1075841,disease,55,2
-GSM1075842,disease,55,2
-GSM1075843,disease,55,2
