@@ -1,0 +1,18 @@
+name: xreactive
+channels:
+- conda-forge
+- bioconda
+dependencies:
+- bioconda::bioconductor-illuminahumanmethylationepicmanifest=0.3.0
+- bioconda::bioconductor-minfi=1.44.0
+- bioconda::bioconductor-illuminahumanmethylation450kmanifest=0.4.0
+- bioconda::bioconductor-IlluminaHumanMethylation450kanno.ilmn12.hg19=0.6.1
+- anaconda::libopenblas=0.3.3
+- bioconda::bioconductor-limma=3.54.0
+- bioconda::bioconductor-missmethyl=1.32.0
+- bioconda::bioconductor-dmrcate=2.12.0
+- bioconda::bioconductor-minfidata=0.44.0
+- conda-forge::r-stringi
+- bioconda::bioconductor-bsgenome.hsapiens.ucsc.hg19.masked
+- bioconda::bioconductor-bsgenome.hsapiens.ucsc.hg38.masked
+- bioconda::bioconductor-watermelon

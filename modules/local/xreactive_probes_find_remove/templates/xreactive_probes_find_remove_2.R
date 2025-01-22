@@ -10,9 +10,15 @@ library(missMethyl)
 library(IlluminaHumanMethylation450kmanifest)
 library(minfiData)
 library(DMRcate)
-library(DNAmCrosshyb)
 library(dplyr)
 library(readr)
+
+# If using conda try to fetch hosted .tar.gz DNAmCrosshyb package
+if("$conda") {
+  message("Fetching DNAmCrosshyb tarball from https://github.com/ajandria/DNAmCrosshyb/releases/download/0.0.0.9000-methylarray-host/DNAmCrosshyb_0.0.0.9000.tar.gz")
+  install.packages("https://github.com/ajandria/DNAmCrosshyb/releases/download/0.0.0.9000-methylarray-host/DNAmCrosshyb_0.0.0.9000.tar.gz", repos = NULL, type = "source")
+}
+library(DNAmCrosshyb)
 
 # Get the input arguments
 RData_PREPROCESSING <- "$RData_PREPROCESSING"
