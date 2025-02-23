@@ -8,7 +8,6 @@ library(dplyr)
 library(readr)
 library(minfi)
 library(tibble)
-library(ChAMP)
 library(doParallel) 
 
 registerDoParallel(makePSOCKcluster(3))

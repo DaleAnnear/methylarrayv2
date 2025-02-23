@@ -2,6 +2,7 @@ process ADJUST_CELL_COMPOSITION {
     tag "${samplesheet_name}"
     label 'process_single'
 
+    conda "${moduleDir}/environment.yml"
     container "${ params.methylarray_deps_container }"
 
     input:

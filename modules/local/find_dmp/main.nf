@@ -2,6 +2,7 @@ process FIND_DMP {
     tag "${samplesheet_name}"
     label 'process_single'
 
+    conda "${moduleDir}/environment.yml"
     container "${ params.methylarray_deps_container }"
 
     input:
