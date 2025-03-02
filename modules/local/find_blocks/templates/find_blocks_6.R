@@ -1,8 +1,8 @@
 #!/usr/bin/env Rscript
-##This script reads Beta values of methylation arrays and computes blocks of dna regions with many DMPs, 
-##Input = beta values of pre-processed methylation data 
+##This script reads Beta values of methylation arrays and computes blocks of dna regions with many DMPs,
+##Input = beta values of pre-processed methylation data
 ##Input = metadata information with sample ids and group information (categories: case, control or different groups)
-##output = csv files with p values of blocks 
+##output = csv files with p values of blocks
 
 library(dplyr)
 library("readr")
@@ -13,7 +13,7 @@ library(readr)
 ###Load necessary data
 bVals <- read_csv("$bVALS_SNPPROBES")
 metadata <- read_csv("$extensive_metadata") %>%
-  filter(sample_id %in% c(colnames(bVals)))
+    filter(sample_id %in% c(colnames(bVals)))
 ####Match metadata order to columns in bVals
 metadata <- metadata[match(c(colnames(bVals)), metadata\$sample_id),]
 
@@ -32,10 +32,12 @@ Min = 5
 Max = 250000
 
 ###Computing blocks
-blocks <- champ.Block(beta = bVals[,Samples], 
-                       pheno = Class, 
-                       arraytype = ARRAY, 
-                       maxClusterGap = Max, 
-                       minNum = Min)
+blocks <- champ.Block(
+    beta = bVals[,Samples],
+    pheno = Class,
+    arraytype = ARRAY,
+    maxClusterGap = Max,
+    minNum = Min
+)
 
-  write_csv(blocks, "blocks_champ.csv")
+write_csv(blocks, "blocks_champ.csv")
