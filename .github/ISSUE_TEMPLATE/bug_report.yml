@@ -9,7 +9,6 @@ body:
 
         - [nf-core website: troubleshooting](https://nf-co.re/usage/troubleshooting)
         - [nf-core/methylarray pipeline documentation](https://nf-co.re/methylarray/usage)
-
   - type: textarea
     id: description
     attributes:
