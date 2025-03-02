@@ -68,7 +68,7 @@ workflow METHYLARRAY {
     //
     // Optional steps of methylarray
     //
-    
+
     //
     // Output channel following optional steps
     //
