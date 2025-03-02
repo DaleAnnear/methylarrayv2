@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 ##This script reads Beta values of methylation arrays and computes DMPs, Differentially methylated positions
-##Input = beta values of pre-processed methylation data 
+##Input = beta values of pre-processed methylation data
 ##Input = metadata information with sample ids and group information (categories: case, control or different groups)
 ##output = csv files with p-values for the DMPs in each comparison of categories
 
@@ -27,31 +27,34 @@ metadata <- metadata[match(c(colnames(bVals)), metadata\$sample_id),]
 Samples <- metadata\$sample_id
 Class <- metadata\$group
 
-##Choose the adjustment method: can be "BH", 
+##Choose the adjustment method: can be "BH",
 Method = "BH"
 
 ##Choose array type: ("EPIC" or "450K")
 ARRAY = "EPIC"
 
 ###Choose adjusted P value
-P = 0.05 
+P = 0.05
 P = 1 # NOTE: for development
 
 ###Computing DMPs
-dmp_data <- champ.DMP(beta = bVals[,Samples], 
-          pheno = Class, 
-          adjPVal = P, 
-          adjust.method = Method, 
-          arraytype = ARRAY) 
+dmp_data <- champ.DMP(
+    beta = bVals[,Samples],
+    pheno = Class,
+    adjPVal = P,
+    adjust.method = Method,
+    arraytype = ARRAY
+)
 
 export_list(dmp_data, file = "dmp_champ.%s.csv")
 
 ###Finding DMPs with another method (required binary categories of "Class", it will work with multiple categories but the do not specify which comparison it is)
 print(bVals[,Samples])
-dmp_minfi <- dmpFinder(as.matrix(bVals[,Samples]), 
-                 Class, 
-          type = "categorical") %>% 
-          filter(pval < P) %>%
-          arrange(pval) 
+dmp_minfi <- dmpFinder(
+        as.matrix(bVals[,Samples]),
+        Class,
+        type = "categorical") %>%
+    filter(pval < P) %>%
+    arrange(pval)
 
 write_csv(dmp_minfi, file = "dmp_minfi.csv")
