@@ -19,7 +19,22 @@
 
 ## Introduction
 
-**nf-core/methylarray** is a bioinformatics pipeline that ...
+**nf-core/methylarray** is a bioinformatics pipeline that was designed for the analysis of methylation data generated from Illumina arrays. It offers an end-to-end solution that covers every stage of the analysis workflow, including: pre-processing, quality checks, removal of cross-reactive/SNP/gender-at-birth-dependent and confounding probes. Moreover, the pipeline also estimates and adjusts for cell composition. It also provides a way of identifying differentially methylated probes, regions and/or blocks. Pipeline consists of the following processes:
+
+1. Pre-processing:
+    - Uses minfi to read IDAT files, perform quality control, normalize data (via preprocessQuantile or preprocessFunnorm), and calculate methylation values.
+2. Removal of cross-reactive probes:
+    - Employs DNAmCrosshyb to identify and filter out probes that map ambiguously across the genome.
+3. Removal of SNP probes:
+    - Utilizes minfi functions to annotate and remove probes overlapping with known SNPs.
+4. Exclusion of sex chromosome probes:
+    - Uses EPIC array annotations to remove probes from the X and Y chromosomes, minimizing gender-related bias.
+5. Removal of confounding probes:
+    - Performs differential methylation analysis (using dmpFinder) to filter out probes associated with confounding factors like age.
+6. Cell composition adjustment:
+    - Uses ChAMP’s champ.refbase to correct for variations in cell type proportions, particularly in whole blood samples.
+7. Differential methylation analysis:
+    - Combines methods from ChAMP and minfi to identify differentially methylated probes between sample groups.
 
 <!-- TODO nf-core:
    Complete this sentence with a 2-3 sentence summary of what types of data the pipeline ingests, a brief overview of the
@@ -29,7 +44,8 @@
 
 <!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
      workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline --> 
+<!-- 1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/)) --> 
 
 ## Usage
 
