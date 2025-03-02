@@ -31,7 +31,7 @@ if (grepl(".tar.gz", Genome_PATH)) {
     Genome_PATH <- gsub(".tar.gz\$", "", Genome_PATH)
 }
 
-####The human genome version should be downloaded to data/genome_bs and here we specify the file 
+####The human genome version should be downloaded to data/genome_bs and here we specify the file
 #PATH <- "data/genome_bs/hg19"
 PATH <- Genome_PATH
 

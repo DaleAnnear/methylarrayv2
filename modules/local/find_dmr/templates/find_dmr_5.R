@@ -70,24 +70,24 @@ DMRcate_manual_run = function(
     design <- model.matrix(~ pheno)
     if (arraytype == "EPIC") {
         myannotation <- cpg.annotate(datatype = "array",
-                                     fdr = 1,
-                                     myMs,
-                                     design = design,
-                                     coef = ncol(design),
-                                     analysis.type = "differential",
-                                     annotation = c(array = "IlluminaHumanMethylation450k",
-                                                    annotation = "ilmn12.hg19"),
-                                     what = "M")
+                                    fdr = 1,
+                                    myMs,
+                                    design = design,
+                                    coef = ncol(design),
+                                    analysis.type = "differential",
+                                    annotation = c(array = "IlluminaHumanMethylation450k",
+                                        annotation = "ilmn12.hg19"),
+                                    what = "M")
     } else {
         myannotation <- cpg.annotate(datatype = "array",
-                                     fdr = 1,
-                                     myMs,
-                                     design = design,
-                                     coef = ncol(design),
-                                     analysis.type = "differential",
-                                     annotation = c(array = "IlluminaHumanMethylationEPIC",
-                                                    annotation = "ilm10b4.hg19"),
-                                     what = "M")
+                                    fdr = 1,
+                                    myMs,
+                                    design = design,
+                                    coef = ncol(design),
+                                    analysis.type = "differential",
+                                    annotation = c(array = "IlluminaHumanMethylationEPIC",
+                                        annotation = "ilm10b4.hg19"),
+                                    what = "M")
     }
     dmrcoutput <- dmrcate(myannotation, lambda = lambda, C = C)
     DMR <- as.data.frame(extractRanges(dmrcoutput, genome = "hg19"))
