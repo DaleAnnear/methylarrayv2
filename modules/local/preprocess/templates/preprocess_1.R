@@ -10,9 +10,9 @@ metharray_sheet <- "$samplesheet_name"
 
 # If input is a compressed archive, extract it
 if(grepl(".tar.gz", dataDirectory)) {
-  message("Extracting ", dataDirectory)
-  system(paste("tar -zxvf", dataDirectory))
-  dataDirectory <- gsub(".tar.gz\$", "", dataDirectory)
+    message("Extracting ", dataDirectory)
+    system(paste("tar -zxvf", dataDirectory))
+    dataDirectory <- gsub(".tar.gz\$", "", dataDirectory)
 }
 
 # Set constants
@@ -46,9 +46,9 @@ detP <- detP[, keep]
 
 # Normalize the data
 if (Norm_method == "preprocessQuantile") {
-  mSetSq <- preprocessQuantile(rgSet)
+    mSetSq <- preprocessQuantile(rgSet)
 } else if (Norm_method == "preprocessFunnorm") {
-  mSetSq <- preprocessFunnorm(rgSet)
+    mSetSq <- preprocessFunnorm(rgSet)
 }
 
 # Filtering: Put probes in the same order in mSetSq and detP
