@@ -95,7 +95,7 @@ DMRcate_manual_run = function(
     message("DMRcate detected ", nrow(DMR), " DMRs with mafcut as = ", mafcut, ".")
     if (nrow(DMR) == 0)
         stop("No DMR detected.")
-    
+
     return(DMR)
 }
 
