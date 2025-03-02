@@ -251,6 +251,10 @@
                     "default": true,
                     "description": "Whether to compute DMRs"
                 },
+                "remove_xreactive": {
+                    "type": "boolean",
+                    "description": "Run XREACTIVE_PROBES_FIND_REMOVE?"
+                },
                 "xreactive_chr_targets": {
                     "type": "string",
                     "default": "all",
