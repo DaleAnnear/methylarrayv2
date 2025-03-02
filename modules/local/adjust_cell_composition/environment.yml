@@ -1,9 +1,9 @@
 name: cell_composition
 channels:
-- conda-forge
-- bioconda
+  - conda-forge
+  - bioconda
 dependencies:
-- conda-forge::r-readr
-- bioconda::bioconductor-champ
-- bioconda::bioconductor-lumi
-- bioconda::bioconductor-genelendatabase=1.28.0
+  - conda-forge::r-readr
+  - bioconda::bioconductor-champ
+  - bioconda::bioconductor-lumi
+  - bioconda::bioconductor-genelendatabase=1.28.0
