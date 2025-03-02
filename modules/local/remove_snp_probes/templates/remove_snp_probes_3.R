@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 
 ##This script is removing SNPs probes, Finally, the script calculates methylation values.
-### input = normalized  and filtered mSet object 
+### input = normalized  and filtered mSet object
 ##output = mSet object (.RData format), normalized  M and beta values (csv format)
 
 ##Requirements
@@ -19,9 +19,9 @@ get(load(RData_XREACTIVE))
 
 
 ##Remove probes with known SNPs, default is to remove all, but you can define a threshold of highest frequency of the minor allele
-snps <- getSnpInfo(mSetSqFlt) 
+snps <- getSnpInfo(mSetSqFlt)
 mSetSqFlt <- addSnpInfo(mSetSqFlt)
-mSetSqFlt <- dropLociWithSnps(mSetSqFlt, snps=c("SBE","CpG", "Probe"), maf = MAF) 
+mSetSqFlt <- dropLociWithSnps(mSetSqFlt, snps=c("SBE","CpG", "Probe"), maf = MAF)
 
 ##Calculate M and Beta values
 mVals <- getM(mSetSqFlt)
