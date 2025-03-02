@@ -15,7 +15,7 @@ process XREACTIVE_PROBES_FIND_REMOVE {
 
     when:
     task.ext.when == null || task.ext.when
-    
+
     script:
     conda = workflow.profile.tokenize(',').intersect(['conda', 'mamba']).size() >= 1
     if (conda) {
