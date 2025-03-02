@@ -11,7 +11,7 @@ library(dplyr)
 
 ##Load previously saved data (RData objects, for more details, please look at pre-processing.Rmd)
 bVals <- read_csv("$bVALS_SNPPROBES")
-metadata <- read_csv("$extensive_metadata") %>% 
+metadata <- read_csv("$extensive_metadata") %>%
     select(-c('age','bmi_cat')) # NOTE: for development
 
 ###Define the confounders you want to adjust your data for
@@ -20,12 +20,15 @@ metadata <- read_csv("$extensive_metadata") %>%
 ####Match metadata order to columns in bVals
 metadata <- metadata[match(c(colnames(bVals)), metadata\$sample_id),]
 
-##Correct for bmi and age using ChAMP 
-bVals <- champ.runCombat(beta = as.data.frame(bVals),
-                         pd = as.data.frame(metadata),
-                         variablename = "group",
-                         #batchname = confounders, # NOTE: for development
-                         logitTrans = TRUE) ####Change to FALSE if you are using M-values
+##Correct for bmi and age using ChAMP
+bVals <- champ.runCombat(
+    beta = as.data.frame(bVals),
+    pd = as.data.frame(metadata),
+    variablename = "group",
+    #batchname = confounders, # NOTE: for development
+    logitTrans = TRUE  # Change to FALSE if you are using M-values
+)
+
 ###Log transformation to obtain M-values
 mVals <- beta2m(bVals)
 
