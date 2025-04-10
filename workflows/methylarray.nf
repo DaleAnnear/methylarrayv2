@@ -78,7 +78,7 @@ workflow METHYLARRAY {
     current_bVals_ch = Channel.empty()
 
     if (params.run_optional_steps) {
-        
+
         current_bVals_ch = params.remove_snp_probes ? REMOVE_SNP_PROBES.out.csv_bVals : XREACTIVE_PROBES_FIND_REMOVE.out.csv.filter { it == 'bVals_noXprob.csv' }
         current_mVals_ch = params.remove_snp_probes ? REMOVE_SNP_PROBES.out.csv_mVals : XREACTIVE_PROBES_FIND_REMOVE.out.csv.filter { it == 'mVals_noXprob.csv' }
         current_mSetSqFlt_ch = params.remove_snp_probes ? REMOVE_SNP_PROBES.out.rdata : XREACTIVE_PROBES_FIND_REMOVE.out.rdata.filter { it == 'mSetSqFlt_noXprob.RData' }
