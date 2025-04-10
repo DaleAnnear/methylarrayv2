@@ -61,9 +61,11 @@ workflow METHYLARRAY {
     //
     // MODULE: Run REMOVE_SNP_PROBES
     //
-    REMOVE_SNP_PROBES (
-        XREACTIVE_PROBES_FIND_REMOVE.out.rdata
-    )
+    if (params.remove_snp_probes) {
+        REMOVE_SNP_PROBES (
+            XREACTIVE_PROBES_FIND_REMOVE.out.rdata
+        )
+    }
 
     //
     // Optional steps of methylarray
@@ -76,9 +78,9 @@ workflow METHYLARRAY {
     current_bVals_ch = Channel.empty()
 
     if (params.run_optional_steps) {
-        current_bVals_ch = REMOVE_SNP_PROBES.out.csv_bVals
+        current_bVals_ch = params.remove_snp_probes ? REMOVE_SNP_PROBES.out.csv_bVals : XREACTIVE_PROBES_FIND_REMOVE.out.csv.filter { it == 'bVals_noXprob.csv' }
         if (params.remove_sex_chromosomes || params.remove_confounding_probes) { // If params.remove_confounding_probes then this has to be run
-            current_bVals_ch = REMOVE_SNP_PROBES.out.rdata
+            current_bVals_ch = params.remove_snp_probes ? REMOVE_SNP_PROBES.out.rdata : XREACTIVE_PROBES_FIND_REMOVE.out.rdata
             //
             // MODULE: Run REMOVE_SEX_CHROMOSOMES
             //
