@@ -260,6 +260,10 @@
                     "default": "all",
                     "description": "String passed to 'chromosomes' argument in 'map_probes()' function from 'DNAmCrosshyb' R package in 'XREACTIVE_PROBES_FIND_REMOVE' process"
                 },
+                "remove_snp_probes": {
+                    "type": "boolean",
+                    "description": "Run REMOVE_SNP_PROBES?"
+                },
                 "run_optional_steps": {
                     "type": "boolean",
                     "default": true,
