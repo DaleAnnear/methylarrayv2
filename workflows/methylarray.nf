@@ -80,8 +80,12 @@ workflow METHYLARRAY {
     current_bVals_ch = Channel.empty()
 
     if (params.run_optional_steps) {
+
         current_bVals_ch = params.remove_snp_probes ? REMOVE_SNP_PROBES.out.csv_bVals : XREACTIVE_PROBES_FIND_REMOVE.out.csv.filter { it == 'bVals_noXprob.csv' }
-        if (params.remove_sex_chromosomes || params.remove_confounding_probes) { // If params.remove_confounding_probes then this has to be run
+        current_mVals_ch = params.remove_snp_probes ? REMOVE_SNP_PROBES.out.csv_mVals : XREACTIVE_PROBES_FIND_REMOVE.out.csv.filter { it == 'mVals_noXprob.csv' }
+        current_mSetSqFlt_ch = params.remove_snp_probes ? REMOVE_SNP_PROBES.out.rdata : XREACTIVE_PROBES_FIND_REMOVE.out.rdata.filter { it == 'mSetSqFlt_noXprob.RData' }
+
+        if (params.remove_sex_chromosomes) {
             current_bVals_ch = params.remove_snp_probes ? REMOVE_SNP_PROBES.out.rdata : XREACTIVE_PROBES_FIND_REMOVE.out.rdata
             //
             // MODULE: Run REMOVE_SEX_CHROMOSOMES
@@ -90,16 +94,19 @@ workflow METHYLARRAY {
                 current_bVals_ch,
                 PREPROCESS.out.rdata_rgSet
             )
+            current_bVals_ch = REMOVE_SEX_CHROMOSOMES.out.bVals_csv
+            current_mVals_ch = REMOVE_SEX_CHROMOSOMES.out.mVals_csv
+            current_mSetSqFlt_ch = REMOVE_SEX_CHROMOSOMES.out.mSetSqFlt
         }
 
-        if (params.remove_confounding_probes || params.remove_sex_chromosomes) { // Currently depends on REMOVE_SEX_CHROMOSOMES
+        if (params.remove_confounding_probes) {
             //
             // MODULE: Run REMOVE_CONFOUNDING_PROBES
             //
             REMOVE_CONFOUNDING_PROBES (
-                REMOVE_SEX_CHROMOSOMES.out.mVals_csv,
-                REMOVE_SEX_CHROMOSOMES.out.bVals_csv,
-                REMOVE_SEX_CHROMOSOMES.out.mSetSqFlt,
+                current_mVals_ch,
+                current_bVals_ch,
+                current_mSetSqFlt_ch,
                 extensive_metadata
             )
             current_bVals_ch = REMOVE_CONFOUNDING_PROBES.out.bVals

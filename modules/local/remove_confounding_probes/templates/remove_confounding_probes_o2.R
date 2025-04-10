@@ -16,8 +16,16 @@ registerDoParallel(makePSOCKcluster(3))
 t = 0.05
 
 ##Load previously saved data (RData objects, for more details, please look at pre-processing.Rmd)
-mVals <- read.csv("$mVals") %>% tibble::column_to_rownames(var = 'probe')
-bVals <- read.csv("$bVals") %>% tibble::column_to_rownames(var = 'probe')
+mVals <- read.csv("$mVals")
+bVals <- read.csv("$bVals")
+
+if ('probe' %in% colnames(mVals)) {
+    mVals <- mVals %>% tibble::column_to_rownames(var = 'probe')
+}
+if ('probe' %in% colnames(bVals)) {
+    bVals <- bVals %>% tibble::column_to_rownames(var = 'probe')
+}
+
 get(load("$RData_REMOVESNP"))
 assays(mSetSqFlt, withDimnames = FALSE) [["M"]] <- mVals
 assays(mSetSqFlt, withDimnames = FALSE) [["Beta"]] <- bVals
@@ -51,5 +59,6 @@ assays(mSetSqFlt, withDimnames = FALSE) [["Beta"]] <- bVals
 
 ##Save the data
 save(mSetSqFlt, file = "mSetSqFlt.filtered_probes.RData")
+
 write_csv(bVals %>% tibble::rownames_to_column(var = "probe"), "cbVals.filtered_probes.csv")
 write_csv(mVals %>% tibble::rownames_to_column(var = "probe"), "cmVals.filtered_probes.csv")
