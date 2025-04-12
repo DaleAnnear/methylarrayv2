@@ -17,6 +17,11 @@ library(readr)
 
 ##Load previously saved data (RData objects, for more details, please look at pre-processing.Rmd, cell_composition_correction.R and rem_conf_probes_adj_age.R
 bVals <- read_csv("$bVALS_SNPPROBES")
+
+if ('probe' %in% colnames(bVals)) {
+    bVals <- bVals %>% tibble::column_to_rownames(var = 'probe')
+}
+
 metadata <- read_csv("$extensive_metadata") %>%
             filter(sample_id %in% c(colnames(bVals)))
 ####Match metadata order to columns in bVals
