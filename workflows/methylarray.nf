@@ -6,6 +6,7 @@
 
 // methylarray
 include { PREPROCESS                    } from '../modules/local/preprocess/main'
+include { FETCH_BS_GENOME               } from '../modules/local/fetch_bs_genome/main'
 include { XREACTIVE_PROBES_FIND_REMOVE  } from '../modules/local/xreactive_probes_find_remove/main'
 include { REMOVE_SNP_PROBES             } from '../modules/local/remove_snp_probes/main'
 include { REMOVE_SEX_CHROMOSOMES        } from '../modules/local/remove_sex_chromosomes/main'
@@ -56,7 +57,7 @@ workflow METHYLARRAY {
         genome_path = Channel.fromPath(params.bs_genome_path)
         XREACTIVE_PROBES_FIND_REMOVE (
             PREPROCESS.out.rdata,
-            genome_path
+            params.bs_genome_path ? file(params.bs_genome_path) : FETCH_BS_GENOME.out.bs_genome
         )
     }
 
