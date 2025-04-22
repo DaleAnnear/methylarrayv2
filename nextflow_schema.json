@@ -242,6 +242,11 @@
                     "type": "string",
                     "description": "Path to comma-separated file containing extra information about the samples in the experiment"
                 },
+                "bs_genome_version": {
+                    "type": "string",
+                    "description": "Version of bsgenome to use",
+                    "default": "hg38"
+                },
                 "bs_genome_path": {
                     "type": "string",
                     "description": "Path to the bisulfite-converted reference genome generated with 'DNAmCrosshyb' utility scripts"
@@ -253,7 +258,8 @@
                 },
                 "remove_xreactive": {
                     "type": "boolean",
-                    "description": "Run XREACTIVE_PROBES_FIND_REMOVE?"
+                    "description": "Run XREACTIVE_PROBES_FIND_REMOVE?",
+                    "default": true
                 },
                 "xreactive_chr_targets": {
                     "type": "string",
@@ -262,7 +268,8 @@
                 },
                 "remove_snp_probes": {
                     "type": "boolean",
-                    "description": "Run REMOVE_SNP_PROBES?"
+                    "description": "Run REMOVE_SNP_PROBES?",
+                    "default": true
                 },
                 "run_optional_steps": {
                     "type": "boolean",
