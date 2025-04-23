@@ -1,13 +1,9 @@
 process FETCH_BS_GENOME {
-    tag "${params.bs_genome_path}"
+    tag "Version: ${params.bs_genome_version}, fetching from zenodo/4088020/files/genome_bs.zip"
     label 'process_medium'
 
     conda "${moduleDir}/environment.yml"
     container "${ params.methylarray_deps_container }"
-
-    input:
-    tuple val(samplesheet_name), path(RData_PREPROCESSING)
-    path(genome_path)
 
     output:
     path("genome_bs/${params.bs_genome_version}"), emit: bs_genome

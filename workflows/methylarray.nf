@@ -54,7 +54,7 @@ workflow METHYLARRAY {
     // Download from: https://github.com/pjhop/DNAmCrosshyb at https://doi.org/10.5281/zenodo.4088019 and point to the version
     // TODO: If bs_genome_path is not provided then the pipeline might resolve it itself
     if (params.remove_xreactive) {
-        genome_path = Channel.fromPath(params.bs_genome_path)
+        FETCH_BS_GENOME()
         XREACTIVE_PROBES_FIND_REMOVE (
             PREPROCESS.out.rdata,
             params.bs_genome_path ? file(params.bs_genome_path) : FETCH_BS_GENOME.out.bs_genome
