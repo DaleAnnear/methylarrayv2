@@ -16,39 +16,38 @@ You will need to create a samplesheet with information about the samples you wou
 --input '[path to samplesheet file]'
 ```
 
-### Multiple runs of the same sample
-
-The `sample` identifiers have to be the same when you have re-sequenced the same sample more than once e.g. to increase sequencing depth. The pipeline will concatenate the raw reads before performing any downstream analysis. Below is an example for the same sample sequenced across 3 lanes:
+Below is an example for the samplesheet with 5 samples without experimental group assignment.
 
 ```csv title="samplesheet.csv"
 sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L003_R1_001.fastq.gz,AEG588A1_S1_L003_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L004_R1_001.fastq.gz,AEG588A1_S1_L004_R2_001.fastq.gz
+sample_id,idat_red,idat_green
+GSM1075838,/data/GSM1075838_6929689021_R01C01_Red.idat.gz,/data/GSM1075838_6929689021_R01C01_Grn.idat.gz
+GSM1075839,/data/GSM1075839_6929689021_R02C01_Red.idat.gz,/data/GSM1075839_6929689021_R02C01_Grn.idat.gz
+GSM1075840,/data/GSM1075840_6929689021_R03C01_Red.idat.gz,/data/GSM1075840_6929689021_R03C01_Grn.idat.gz
+GSM1075841,/data/GSM1075841_6929689021_R04C01_Red.idat.gz,/data/GSM1075841_6929689021_R04C01_Grn.idat.gz
+GSM1075842,/data/GSM1075842_6929689021_R05C01_Red.idat.gz,/data/GSM1075842_6929689021_R05C01_Grn.idat.gz
 ```
 
 ### Full samplesheet
 
-The pipeline will auto-detect whether a sample is single- or paired-end using the information provided in the samplesheet. The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 3 columns to match those defined in the table below.
-
-A final samplesheet file consisting of both single- and paired-end data may look something like the one below. This is for 6 samples, where `TREATMENT_REP3` has been sequenced twice.
+The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 3 columns to match those defined in the table below. In addition to the minimal samplesheet mentioned above, you can also supply `group` column to run DMP or DMR detection without phenotypes.
 
 ```csv title="samplesheet.csv"
 sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP2,AEG588A2_S2_L002_R1_001.fastq.gz,AEG588A2_S2_L002_R2_001.fastq.gz
-CONTROL_REP3,AEG588A3_S3_L002_R1_001.fastq.gz,AEG588A3_S3_L002_R2_001.fastq.gz
-TREATMENT_REP1,AEG588A4_S4_L003_R1_001.fastq.gz,
-TREATMENT_REP2,AEG588A5_S5_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L004_R1_001.fastq.gz,
+sample_id,idat_red,idat_green,group
+GSM1075838,/data/GSM1075838_6929689021_R01C01_Red.idat.gz,/data/GSM1075838_6929689021_R01C01_Grn.idat.gz,MS
+GSM1075839,/data/GSM1075839_6929689021_R02C01_Red.idat.gz,/data/GSM1075839_6929689021_R02C01_Grn.idat.gz,MS
+GSM1075840,/data/GSM1075840_6929689021_R03C01_Red.idat.gz,/data/GSM1075840_6929689021_R03C01_Grn.idat.gz,MS
+GSM1075841,/data/GSM1075841_6929689021_R04C01_Red.idat.gz,/data/GSM1075841_6929689021_R04C01_Grn.idat.gz,NORMAL
+GSM1075842,/data/GSM1075842_6929689021_R05C01_Red.idat.gz,/data/GSM1075842_6929689021_R05C01_Grn.idat.gz,NORMAL
 ```
 
-| Column    | Description                                                                                                                                                                            |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample`  | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`). |
-| `fastq_1` | Full path to FastQ file for Illumina short reads 1. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
-| `fastq_2` | Full path to FastQ file for Illumina short reads 2. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
+| Column        | Description                                                                                                         |
+|---------------|---------------------------------------------------------------------------------------------------------------------|
+| `sample_id`   | Custom sample name.                                                                                                 |
+| `idat_red`    | Full path to the red IDAT file for Illumina microarrays. May be gzipped (`_Red.idat.gz`) or uncompressed (`_Red.idat`). |
+| `idat_green`  | Full path to the green IDAT file for Illumina microarrays. May be gzipped (`_Grn.idat.gz`) or uncompressed (`_Grn.idat`). |
+| `group`  | (Optional) - used for DMP/DMR detection. |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
@@ -57,7 +56,7 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 The typical command for running the pipeline is as follows:
 
 ```bash
-nextflow run nf-core/methylarray --input ./samplesheet.csv --outdir ./results --genome GRCh37 -profile docker
+nextflow run nf-core/methylarray --input ./samplesheet.csv --outdir ./results --bs_genome_version hg38 -profile docker
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
@@ -89,7 +88,7 @@ with:
 ```yaml title="params.yaml"
 input: './samplesheet.csv'
 outdir: './results/'
-genome: 'GRCh37'
+bs_genome_version: 'hg38'
 <...>
 ```
 

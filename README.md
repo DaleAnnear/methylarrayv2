@@ -92,7 +92,7 @@ For more details about the output files and reports, please refer to the
 
 ## Credits
 
-nf-core/methylarray was originally written by Adrian Janucik.
+nf-core/methylarray was originally written by Adrian Janucik by wrapping up scripts developed by Ghada Nouairia.
 
 We thank the following people for their extensive assistance in the development of this pipeline:
 

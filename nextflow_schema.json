@@ -251,6 +251,11 @@
                     "type": "string",
                     "description": "Path to the bisulfite-converted reference genome generated with 'DNAmCrosshyb' utility scripts"
                 },
+                "find_dmps": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether to compute DMPs"
+                },
                 "find_dmrs": {
                     "type": "boolean",
                     "default": true,
