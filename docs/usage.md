@@ -42,12 +42,12 @@ GSM1075841,/data/GSM1075841_6929689021_R04C01_Red.idat.gz,/data/GSM1075841_69296
 GSM1075842,/data/GSM1075842_6929689021_R05C01_Red.idat.gz,/data/GSM1075842_6929689021_R05C01_Grn.idat.gz,NORMAL
 ```
 
-| Column        | Description                                                                                                         |
-|---------------|---------------------------------------------------------------------------------------------------------------------|
-| `sample_id`   | Custom sample name.                                                                                                 |
-| `idat_red`    | Full path to the red IDAT file for Illumina microarrays. May be gzipped (`_Red.idat.gz`) or uncompressed (`_Red.idat`). |
-| `idat_green`  | Full path to the green IDAT file for Illumina microarrays. May be gzipped (`_Grn.idat.gz`) or uncompressed (`_Grn.idat`). |
-| `group`  | (Optional) - used for DMP/DMR detection. |
+| Column       | Description                                                                                                               |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| `sample_id`  | Custom sample name.                                                                                                       |
+| `idat_red`   | Full path to the red IDAT file for Illumina microarrays. May be gzipped (`_Red.idat.gz`) or uncompressed (`_Red.idat`).   |
+| `idat_green` | Full path to the green IDAT file for Illumina microarrays. May be gzipped (`_Grn.idat.gz`) or uncompressed (`_Grn.idat`). |
+| `group`      | (Optional) - used for DMP/DMR detection.                                                                                  |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
