@@ -7,8 +7,8 @@ library(IlluminaHumanMethylationEPICmanifest)
 # Unzip the idat files if they are gzipped
 gz_files <- list.files(getwd(), pattern="gz\$", recursive=TRUE, full.names=TRUE)
 for (file in gz_files) {
-   out <- sub(".gz\$", "", file)
-   system2("gzip", args = c("-dc", shQuote(file)), stdout = out)
+    out <- sub(".gz\$", "", file)
+    system2("gzip", args = c("-dc", shQuote(file)), stdout = out)
 }
 
 # Mapping table
