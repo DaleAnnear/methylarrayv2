@@ -32,9 +32,10 @@ keep <- !(featureNames(mSetSqFlt) %in% annotation\$Name[annotation\$chr %in% c("
 mSetSqFlt <- mSetSqFlt[keep,]
 
 ##Remove probes with known SNPs, default is to remove all, but you can define a threshold of highest frequency of the minor allele
-snps <- getSnpInfo(mSetSqFlt) #GRset
-mSetSqFlt <- addSnpInfo(mSetSqFlt)
-mSetSqFlt <- dropLociWithSnps(mSetSqFlt, snps=c("SBE","CpG", "Probe"), maf=0) ##Can add "Probe" to the SNP list and can change maf threshold
+## this section is being commented out, because there is a specific module for SNP removal, so these 3 lines do not belong here.
+# snps <- getSnpInfo(mSetSqFlt) #GRset
+# mSetSqFlt <- addSnpInfo(mSetSqFlt)
+# mSetSqFlt <- dropLociWithSnps(mSetSqFlt, snps=c("SBE","CpG", "Probe"), maf=0) ##Can add "Probe" to the SNP list and can change maf threshold
 
 
 
