@@ -21,7 +21,22 @@
 
 ## Introduction
 
-**nf-core/methylarray** is a bioinformatics pipeline that ...
+**nf-core/methylarray** is a bioinformatics pipeline that was designed for the analysis of methylation data generated from Illumina arrays. It offers an end-to-end solution that covers every stage of the analysis workflow, including: pre-processing, quality checks, removal of cross-reactive/SNP/gender-at-birth-dependent and confounding probes. Moreover, the pipeline also estimates and adjusts for cell composition. It also provides a way of identifying differentially methylated probes, regions and/or blocks. Pipeline consists of the following processes:
+
+1. Pre-processing:
+   - Uses minfi to read IDAT files, perform quality control, normalize data (via preprocessQuantile or preprocessFunnorm), and calculate methylation values.
+2. Removal of cross-reactive probes:
+   - Employs DNAmCrosshyb to identify and filter out probes that map ambiguously across the genome.
+3. Removal of SNP probes:
+   - Utilizes minfi functions to annotate and remove probes overlapping with known SNPs.
+4. Exclusion of sex chromosome probes:
+   - Uses EPIC array annotations to remove probes from the X and Y chromosomes, minimizing gender-related bias.
+5. Removal of confounding probes:
+   - Performs differential methylation analysis (using dmpFinder) to filter out probes associated with confounding factors like age.
+6. Cell composition adjustment:
+   - Uses ChAMP’s champ.refbase to correct for variations in cell type proportions, particularly in whole blood samples.
+7. Differential methylation analysis:
+   - Combines methods from ChAMP and minfi to identify differentially methylated probes between sample groups.
 
 <!-- TODO nf-core:
    Complete this sentence with a 2-3 sentence summary of what types of data the pipeline ingests, a brief overview of the
@@ -78,7 +93,7 @@ For more details about the output files and reports, please refer to the
 
 ## Credits
 
-nf-core/methylarray was originally written by Adrian Janucik.
+nf-core/methylarray was originally written by Adrian Janucik by wrapping up scripts developed by Ghada Nouairia.
 
 We thank the following people for their extensive assistance in the development of this pipeline:
 
