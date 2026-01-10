@@ -16,6 +16,7 @@ process REMOVE_SEX_CHROMOSOMES {
     tuple val(samplesheet_name), path("bVals.csv")      , emit: bVals_csv
     tuple val(samplesheet_name), path("mSetSqFlt.RData"), emit: mSetSqFlt
     tuple val(samplesheet_name), path("rgSet.RData")    , emit: rgSet
+    path  "versions.yml"                                , emit: versions
 
     when:
     task.ext.when == null || task.ext.when

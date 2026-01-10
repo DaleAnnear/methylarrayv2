@@ -11,6 +11,7 @@ process ADJUST_CELL_COMPOSITION {
     output:
     tuple val(samplesheet_name), path("cmVals.cell_comp.csv"), emit: mVals
     tuple val(samplesheet_name), path("cbVals.cell_comp.csv"), emit: bVals
+    path  "versions.yml"                                     , emit: versions
 
     when:
     task.ext.when == null || task.ext.when

@@ -54,6 +54,7 @@ workflow METHYLARRAY {
         ch_input.map{meta, red, green -> [red, green]}.collect(),
         ch_sample_mapping
     )
+    ch_versions = ch_versions.mix(PREPROCESS.out.versions.first())
 
     //
     // MODULE: Run XREACTIVE_PROBES_FIND_REMOVE
@@ -66,6 +67,7 @@ workflow METHYLARRAY {
             PREPROCESS.out.rdata,
             params.bs_genome_path ? file(params.bs_genome_path) : FETCH_BS_GENOME.out.bs_genome
         )
+        ch_versions = ch_versions.mix(XREACTIVE_PROBES_FIND_REMOVE.out.versions.first())
     }
 
     //
@@ -75,6 +77,7 @@ workflow METHYLARRAY {
         REMOVE_SNP_PROBES (
             params.remove_xreactive ? XREACTIVE_PROBES_FIND_REMOVE.out.rdata : PREPROCESS.out.rdata
         )
+        ch_versions = ch_versions.mix(REMOVE_SNP_PROBES.out.versions.first())
     }
 
     //
@@ -105,6 +108,7 @@ workflow METHYLARRAY {
             current_bVals_ch = REMOVE_SEX_CHROMOSOMES.out.bVals_csv
             current_mVals_ch = REMOVE_SEX_CHROMOSOMES.out.mVals_csv
             current_mSetSqFlt_ch = REMOVE_SEX_CHROMOSOMES.out.mSetSqFlt
+            ch_versions = ch_versions.mix(REMOVE_SEX_CHROMOSOMES.out.versions.first())
         }
 
         if (params.remove_confounding_probes) {
@@ -118,6 +122,7 @@ workflow METHYLARRAY {
                 extensive_metadata
             )
             current_bVals_ch = REMOVE_CONFOUNDING_PROBES.out.bVals
+            ch_versions = ch_versions.mix(REMOVE_CONFOUNDING_PROBES.out.versions.first())
         }
 
         if (params.adjust_cell_composition) {
@@ -128,6 +133,7 @@ workflow METHYLARRAY {
                 current_bVals_ch
             )
             current_bVals_ch = ADJUST_CELL_COMPOSITION.out.bVals
+            ch_versions = ch_versions.mix(ADJUST_CELL_COMPOSITION.out.versions.first())
         }
 
         if (params.adjust_batch_effect) {
@@ -139,6 +145,7 @@ workflow METHYLARRAY {
                 extensive_metadata
             )
             current_bVals_ch = ADJUST_BATCH_EFFECT.out.bVals
+            ch_versions = ch_versions.mix(ADJUST_BATCH_EFFECT.out.versions.first())
         }
     }
 
@@ -164,6 +171,7 @@ workflow METHYLARRAY {
             final_bVals_ch,
             ch_sample_annotation
         )
+        ch_versions = ch_versions.mix(FIND_DMP.out.versions.first())
     }
 
     //
@@ -174,6 +182,7 @@ workflow METHYLARRAY {
             final_bVals_ch,
             ch_sample_annotation
         )
+        ch_versions = ch_versions.mix(FIND_DMR.out.versions.first())
     }
     //
     // MODULE OPTIONAL: Run FIND_BLOCKS
@@ -186,6 +195,7 @@ workflow METHYLARRAY {
             final_bVals_ch,
             ch_sample_annotation
         )
+        ch_versions = ch_versions.mix(FIND_BLOCKS.out.versions.first())
     }
 
     //

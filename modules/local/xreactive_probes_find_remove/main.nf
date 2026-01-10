@@ -10,8 +10,9 @@ process XREACTIVE_PROBES_FIND_REMOVE {
     path(genome_path)
 
     output:
-    tuple val(samplesheet_name), path("*.csv")  , emit: csv
+    tuple val(samplesheet_name), path("*.csv")                  , emit: csv
     tuple val(samplesheet_name), path("mSetSqFlt_noXprob.RData"), emit: rdata
+    path  "versions.yml"                                        , emit: versions
 
     when:
     task.ext.when == null || task.ext.when

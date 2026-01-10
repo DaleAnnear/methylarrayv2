@@ -7,10 +7,10 @@
 ##output=normalized  M and beta values (.RData format)
 
 ##Requirements
-library("readr")
-library("minfi")
-library("IlluminaHumanMethylationEPICmanifest")
-library("IlluminaHumanMethylationEPICanno.ilm10b2.hg19")
+library(readr)
+library(minfi)
+library(IlluminaHumanMethylationEPICmanifest)
+library(IlluminaHumanMethylationEPICanno.ilm10b2.hg19)
 library(tibble)
 library(FlowSorted.Blood.EPIC)
 
@@ -61,3 +61,14 @@ write_csv(as.data.frame(bVals), "mVals.csv")
 write_csv(as.data.frame(mVals), "bVals.csv")
 write_csv(as.data.frame(bVals) %>% tibble::rownames_to_column(var = 'probe'), "mVals.csv")
 write_csv(as.data.frame(mVals) %>% tibble::rownames_to_column(var = 'probe'), "bVals.csv")
+
+# Dump versions
+pkgs <- c("readr","minfi","IlluminaHumanMethylationEPICmanifest","IlluminaHumanMethylationEPICanno.ilm10b2.hg19","tibble","FlowSorted.Blood.EPIC")
+pkg_ver <- function(p) tryCatch(as.character(packageVersion(p)), error=function(e) "NA")
+rver <- paste(R.version\$major, R.version\$minor, sep=".")
+lines <- c(
+  sprintf('"%s":', "${task.process}"),
+  sprintf('  R: "%s"', rver),
+  sprintf('  %s: "%s"', pkgs, vapply(pkgs, pkg_ver, character(1)))
+)
+writeLines(lines, "versions.yml")

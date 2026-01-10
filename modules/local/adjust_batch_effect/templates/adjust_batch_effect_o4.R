@@ -4,7 +4,7 @@
 ##input = beta values, metadata with samples column under the name "sample_id", and names of the columns from metadata that you want to adjust the data for.
 ##output = beta values and M values adjusted for the confounders
 
-library("ChAMP")
+library(ChAMP)
 library(lumi)
 library(readr)
 library(dplyr)
@@ -35,3 +35,14 @@ mVals <- beta2m(bVals)
 ##Save all necessary R objects for later use
 write.csv(mVals, "mVals.cell_comp.cor_bmi_age.csv")
 write.csv(bVals, "bVals.cell_comp.cor_bmi_age.csv")
+
+# Dump versions
+pkgs <- c("ChAMP","lumi","readr","dplyr")
+pkg_ver <- function(p) tryCatch(as.character(packageVersion(p)), error=function(e) "NA")
+rver <- paste(R.version\$major, R.version\$minor, sep=".")
+lines <- c(
+  sprintf('"%s":', "${task.process}"),
+  sprintf('  R: "%s"', rver),
+  sprintf('  %s: "%s"', pkgs, vapply(pkgs, pkg_ver, character(1)))
+)
+writeLines(lines, "versions.yml")
