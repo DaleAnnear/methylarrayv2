@@ -34,7 +34,6 @@ workflow PIPELINE_INITIALISATION {
     input             //  string: Path to input samplesheet
 
     main:
-
     ch_versions = Channel.empty()
 
     //
@@ -72,16 +71,8 @@ workflow PIPELINE_INITIALISATION {
     // Create channel from input file provided through params.input
     //
 
-    Channel
-        .fromPath(input)
-        .splitCsv(header: true)
-        .map {
-            row ->
-                def idat_folder = row.idat_folder
-                def illumina_sample_sheet = row.illumina_sample_sheet
-                return [idat_folder, illumina_sample_sheet]
-        }
-        .set { ch_samplesheet }
+    ch_samplesheet = params.input
+        ? Channel.fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json")) : Channel.empty()
 
     emit:
     samplesheet = ch_samplesheet

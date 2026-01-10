@@ -4,36 +4,30 @@
 library(minfi)
 library(IlluminaHumanMethylationEPICmanifest)
 
-# Get the input arguments
-dataDirectory <- "$idat_folders"
-metharray_sheet <- "$samplesheet_name"
-
-# If input is a compressed archive, extract it
-if(grepl(".tar.gz", dataDirectory)) {
-    message("Extracting ", dataDirectory)
-    system(paste("tar -zxvf", dataDirectory))
-    dataDirectory <- gsub(".tar.gz\$", "", dataDirectory)
+# Unzip the idat files if they are gzipped
+gz_files <- list.files(getwd(), pattern="gz\$", recursive=TRUE, full.names=TRUE)
+for (file in gz_files) {
+    out <- sub(".gz\$", "", file)
+    system2("gzip", args = c("-dc", shQuote(file)), stdout = out)
 }
+
+# Mapping table
+mapping <- read.csv("${sample_mapping}", header = FALSE)
 
 # Set constants
 P = 0.01
 Norm_method = "preprocessQuantile"  # Choose normalization method: "preprocessFunnorm" or "preprocessQuantile"
 Sample_Name <- "Sample_Name"        # Column name that encodes the sample names
 
-# Print some info for debugging
-cat("Data directory:", paste0(dataDirectory), "\n")
-cat("Sample sheet:", paste0(metharray_sheet), "\n")
-
-# Load data
-list.files(dataDirectory, recursive = TRUE)
-
-# Reading the sample sheet in CSV format
-targets <- read.metharray.sheet(dataDirectory, pattern = metharray_sheet)
-rgSet <- read.metharray.exp(targets = targets)
+# Create rgSet
+rgSet <- read.metharray.exp(
+    targets = NULL,
+    base = getwd(),
+    verbose = TRUE
+)
 
 # Assign significant names to the columns (samples)
-targets\$ID <- targets[[Sample_Name]]
-sampleNames(rgSet) <- targets\$ID
+sampleNames(rgSet) <- mapping\$V2[match(sampleNames(rgSet), mapping\$V1)]
 
 # QC: Detection p-values of the signal quality
 detP <- detectionP(rgSet)
@@ -41,7 +35,6 @@ keep <- colMeans(detP) < P
 rgSet <- rgSet[, keep]
 
 # Remove poor quality samples from targets and detection p-value table
-targets <- targets[keep, ]
 detP <- detP[, keep]
 
 # Normalize the data

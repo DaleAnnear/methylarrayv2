@@ -37,7 +37,7 @@ metadata <- read_csv("$extensive_metadata") %>%
 metadata <- metadata[match(c(colnames(mVals)), metadata\$sample_id),]
 
 ###Set the metadata field for categorical confounder
-CONFOUNDER <- metadata\$age
+CONFOUNDER <- metadata\$pheno_age
 
 ###Removing probes with high correlation to a confounder
 dmp.conf.sig <- dmpFinder(as.matrix(mVals), CONFOUNDER, type = "categorical",

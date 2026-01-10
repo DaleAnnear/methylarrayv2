@@ -15,15 +15,15 @@ library(readr)
 ##Load previously saved data (RData objects, for more details, please look at pre-processing.Rmd, cell_composition_correction.R and rem_conf_probes_adj_age.R
 ###Load necessary data
 bVals <- read_csv("$bVALS_SNPPROBES")
-metadata <- read_csv("$extensive_metadata") %>%
-    filter(sample_id %in% c(colnames(bVals)))
+metadata <- read.csv("$extensive_metadata", header = FALSE) %>%
+    filter(V1 %in% c(colnames(bVals)))
 ####Match metadata order to columns in bVals
-metadata <- metadata[match(c(colnames(bVals)), metadata\$sample_id),]
+metadata <- metadata[match(c(colnames(bVals)), metadata\$V1),]
 
 ##Choose the samples field
 ##Choosing only the field with information of the category of each samples (can be multiple)
-Samples <- metadata\$sample_id
-Class <- metadata\$group
+Samples <- metadata\$V1
+Class <- metadata\$V2
 
 ##Choose the method: can be "Bumphunter", "ProbeLasso" or "DMRcate" but it actually doesn't work for DMRcate (not maintained anymore through ChAMP,
 ###so I calculate it with its explicit function here)

@@ -22,15 +22,15 @@ if ('probe' %in% colnames(bVals)) {
     bVals <- bVals %>% tibble::column_to_rownames(var = 'probe')
 }
 
-metadata <- read_csv("$extensive_metadata") %>%
-            filter(sample_id %in% c(colnames(bVals)))
+metadata <- read.csv("$extensive_metadata", header = FALSE) %>%
+            filter(V1 %in% c(colnames(bVals)))
 ####Match metadata order to columns in bVals
-metadata <- metadata[match(c(colnames(bVals)), metadata\$sample_id),]
+metadata <- metadata[match(c(colnames(bVals)), metadata\$V1),]
 
 ##Choose the samples field
 ##Choosing only the field with information of the category of each samples (can be multiple)
-Samples <- metadata\$sample_id
-Class <- metadata\$group
+Samples <- metadata\$V1
+Class <- metadata\$V2
 
 ##Choose the adjustment method: can be "BH",
 Method = "BH"

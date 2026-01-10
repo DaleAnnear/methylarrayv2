@@ -7,17 +7,31 @@
     "items": {
         "type": "object",
         "properties": {
-            "idat_folder": {
+            "sample_id": {
                 "type": "string",
-                "pattern": "^.+$",
-                "errorMessage": "IDAT folder path must be provided"
+                "pattern": "^\\S+$",
+                "errorMessage": "Sample name must be provided and cannot contain spaces",
+                "meta": ["id"]
             },
-            "illumina_sample_sheet": {
+            "idat_red": {
                 "type": "string",
-                "pattern": "^.+\\.csv$",
-                "errorMessage": "Illumina sample sheet must be a valid CSV file name"
+                "format": "file-path",
+                "exists": true,
+                "pattern": "^\\S+\\.idat\\.gz$",
+                "errorMessage": "IDAT file for red channel must be provided, cannot contain spaces and must have extension '.idat.gz'"
+            },
+            "idat_green": {
+                "type": "string",
+                "format": "file-path",
+                "exists": true,
+                "pattern": "^\\S+\\.idat\\.gz$",
+                "errorMessage": "IDAT file for green channel must be provided, cannot contain spaces and must have extension '.idat.gz'"
+            },
+            "group": {
+                "type": "string",
+                "meta": ["group"]
             }
         },
-        "required": ["idat_folder", "illumina_sample_sheet"]
+        "required": ["sample_id", "idat_red", "idat_green"]
     }
 }
