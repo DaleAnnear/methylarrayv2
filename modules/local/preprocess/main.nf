@@ -13,6 +13,7 @@ process PREPROCESS {
     tuple val("${idats.size()}"), path("*.csv")          , emit: csv
     tuple val("${idats.size()}"), path("mSetSqFlt.RData"), emit: rdata
     tuple val("${idats.size()}"), path("rgSet.RData")    , emit: rdata_rgSet
+    path  "versions.yml"                                 , emit: versions
 
     when:
     task.ext.when == null || task.ext.when

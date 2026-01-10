@@ -11,6 +11,7 @@ process ADJUST_BATCH_EFFECT {
     output:
     tuple val(samplesheet_name), path("mVals.cell_comp.cor_bmi_age.csv"), emit: mVals
     tuple val(samplesheet_name), path("bVals.cell_comp.cor_bmi_age.csv"), emit: bVals
+    path  "versions.yml"                                                , emit: versions
 
     when:
     task.ext.when == null || task.ext.when

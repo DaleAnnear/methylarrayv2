@@ -62,3 +62,14 @@ save(mSetSqFlt, file = "mSetSqFlt.filtered_probes.RData")
 
 write_csv(bVals %>% tibble::rownames_to_column(var = "probe"), "cbVals.filtered_probes.csv")
 write_csv(mVals %>% tibble::rownames_to_column(var = "probe"), "cmVals.filtered_probes.csv")
+
+# Dump versions
+pkgs <- c("dplyr","readr","minfi","tibble","doParallel")
+pkg_ver <- function(p) tryCatch(as.character(packageVersion(p)), error=function(e) "NA")
+rver <- paste(R.version\$major, R.version\$minor, sep=".")
+lines <- c(
+  sprintf('"%s":', "${task.process}"),
+  sprintf('  R: "%s"', rver),
+  sprintf('  %s: "%s"', pkgs, vapply(pkgs, pkg_ver, character(1)))
+)
+writeLines(lines, "versions.yml")

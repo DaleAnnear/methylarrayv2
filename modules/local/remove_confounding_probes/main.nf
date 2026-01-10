@@ -15,6 +15,7 @@ process REMOVE_CONFOUNDING_PROBES {
     tuple val(samplesheet_name), path("cbVals.filtered_probes.csv")     , emit: bVals
     tuple val(samplesheet_name), path("cmVals.filtered_probes.csv")     , emit: mVals
     tuple val(samplesheet_name), path("mSetSqFlt.filtered_probes.RData"), emit: rdata
+    path  "versions.yml"                                                , emit: versions
 
     when:
     task.ext.when == null || task.ext.when

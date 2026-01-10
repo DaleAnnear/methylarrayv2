@@ -10,7 +10,8 @@ process FIND_BLOCKS {
 
     output:
     tuple val(samplesheet_name), path("dmp_champ.%s.csv"), emit: mVals
-    tuple val(samplesheet_name), path("dmp_minfi.csv"), emit: bVals
+    tuple val(samplesheet_name), path("dmp_minfi.csv")   , emit: bVals
+    path  "versions.yml"                                 , emit: versions
 
     when:
     task.ext.when == null || task.ext.when

@@ -5,9 +5,8 @@
 ##output = csv files with p values of blocks
 
 library(dplyr)
-library("readr")
-library("ChAMP")
 library(readr)
+library(ChAMP)
 
 ##Load previously saved data (RData objects, for more details, please look at pre-processing.Rmd, cell_composition_correction.R and rem_conf_probes_adj_age.R
 ###Load necessary data
@@ -41,3 +40,14 @@ blocks <- champ.Block(
 )
 
 write_csv(blocks, "blocks_champ.csv")
+
+# Dump versions
+pkgs <- c("dplyr","readr","ChAMP")
+pkg_ver <- function(p) tryCatch(as.character(packageVersion(p)), error=function(e) "NA")
+rver <- paste(R.version\$major, R.version\$minor, sep=".")
+lines <- c(
+  sprintf('"%s":', "${task.process}"),
+  sprintf('  R: "%s"', rver),
+  sprintf('  %s: "%s"', pkgs, vapply(pkgs, pkg_ver, character(1)))
+)
+writeLines(lines, "versions.yml")

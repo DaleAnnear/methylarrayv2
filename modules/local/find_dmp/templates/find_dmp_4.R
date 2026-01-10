@@ -7,12 +7,11 @@
 ##Computations of DMPs using ChAMP and minfi
 
 library(dplyr)
-library("readr")
-library("minfi")
-library(tibble)
-library("ChAMP")
-library(rio)
 library(readr)
+library(minfi)
+library(tibble)
+library(ChAMP)
+library(rio)
 
 
 ##Load previously saved data (RData objects, for more details, please look at pre-processing.Rmd, cell_composition_correction.R and rem_conf_probes_adj_age.R
@@ -63,3 +62,14 @@ dmp_minfi <- dmpFinder(
     arrange(pval)
 
 write_csv(dmp_minfi, file = "dmp_minfi.csv")
+
+# Dump versions
+pkgs <- c("dplyr","readr","minfi","tibble","ChAMP","rio")
+pkg_ver <- function(p) tryCatch(as.character(packageVersion(p)), error=function(e) "NA")
+rver <- paste(R.version\$major, R.version\$minor, sep=".")
+lines <- c(
+  sprintf('"%s":', "${task.process}"),
+  sprintf('  R: "%s"', rver),
+  sprintf('  %s: "%s"', pkgs, vapply(pkgs, pkg_ver, character(1)))
+)
+writeLines(lines, "versions.yml")

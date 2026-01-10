@@ -36,3 +36,14 @@ write_csv(as.data.frame(bVals), "bVals_noXprob_noSNP.csv")
 save(mSetSqFlt, file = "mSetSqFlt_noXprob_noSNP.RData")
 write_csv(as.data.frame(bVals) %>% tibble::rownames_to_column(var = 'probe'), "mVals_noXprob_noSNP.csv")
 write_csv(as.data.frame(mVals) %>% tibble::rownames_to_column(var = 'probe'), "bVals_noXprob_noSNP.csv")
+
+# Dump versions
+pkgs <- c("minfi","readr")
+pkg_ver <- function(p) tryCatch(as.character(packageVersion(p)), error=function(e) "NA")
+rver <- paste(R.version\$major, R.version\$minor, sep=".")
+lines <- c(
+  sprintf('"%s":', "${task.process}"),
+  sprintf('  R: "%s"', rver),
+  sprintf('  %s: "%s"', pkgs, vapply(pkgs, pkg_ver, character(1)))
+)
+writeLines(lines, "versions.yml")

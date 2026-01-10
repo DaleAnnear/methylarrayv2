@@ -11,7 +11,8 @@ process FIND_DMP {
 
     output:
     tuple val(samplesheet_name), path("dmp_champ.*.csv"), emit: all
-    tuple val(samplesheet_name), path("dmp_minfi.csv"), emit: minfi
+    tuple val(samplesheet_name), path("dmp_minfi.csv")  , emit: minfi
+    path  "versions.yml"                                , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
