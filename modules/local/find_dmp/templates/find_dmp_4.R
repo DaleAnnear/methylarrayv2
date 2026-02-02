@@ -35,7 +35,7 @@ Class <- metadata\$V2
 Method = "BH"
 
 ##Choose array type: ("EPIC" or "450K")
-ARRAY = "EPIC"
+ARRAY = "450K"
 
 ###Choose adjusted P value
 P = 0.05

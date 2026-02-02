@@ -9,8 +9,7 @@ process FIND_DMR {
     path(extensive_metadata)
 
     output:
-    tuple val(samplesheet_name), path("dmp_champ.*.csv"), emit: all
-    tuple val(samplesheet_name), path("dmp_minfi.csv")  , emit: minfi
+    tuple val(samplesheet_name), path("dmr_champ.*.csv"), emit: all
     path  "versions.yml"                                , emit: versions
 
     when:

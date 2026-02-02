@@ -34,8 +34,8 @@ library(dplyr)
 write_csv(as.data.frame(mVals), "mVals_noXprob_noSNP.csv")
 write_csv(as.data.frame(bVals), "bVals_noXprob_noSNP.csv")
 save(mSetSqFlt, file = "mSetSqFlt_noXprob_noSNP.RData")
-write_csv(as.data.frame(bVals) %>% tibble::rownames_to_column(var = 'probe'), "mVals_noXprob_noSNP.csv")
-write_csv(as.data.frame(mVals) %>% tibble::rownames_to_column(var = 'probe'), "bVals_noXprob_noSNP.csv")
+write_csv(as.data.frame(bVals) %>% tibble::rownames_to_column(var = 'probe'), "bVals_noXprob_noSNP.csv")
+write_csv(as.data.frame(mVals) %>% tibble::rownames_to_column(var = 'probe'), "mVals_noXprob_noSNP.csv")
 
 # Dump versions
 pkgs <- c("minfi","readr")

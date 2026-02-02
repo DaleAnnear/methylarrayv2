@@ -59,8 +59,8 @@ save(rgSet, file = "rgSet.RData") # NOTE: Not needed?
 library(dplyr)
 write_csv(as.data.frame(bVals), "mVals.csv")
 write_csv(as.data.frame(mVals), "bVals.csv")
-write_csv(as.data.frame(bVals) %>% tibble::rownames_to_column(var = 'probe'), "mVals.csv")
-write_csv(as.data.frame(mVals) %>% tibble::rownames_to_column(var = 'probe'), "bVals.csv")
+write_csv(as.data.frame(bVals) %>% tibble::rownames_to_column(var = 'probe'), "bVals.csv")
+write_csv(as.data.frame(mVals) %>% tibble::rownames_to_column(var = 'probe'), "mVals.csv")
 
 # Dump versions
 pkgs <- c("readr","minfi","IlluminaHumanMethylationEPICmanifest","IlluminaHumanMethylationEPICanno.ilm10b2.hg19","tibble","FlowSorted.Blood.EPIC")

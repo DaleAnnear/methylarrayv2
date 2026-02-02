@@ -4,6 +4,8 @@
 ##Input = metadata information with sample ids and group information (categories: case, control or different groups)
 ##output = csv files with p values of DMRs found by the chosen method
 
+Sys.setenv(HOME = getwd())
+
 library(dplyr)
 library(readr)
 library(minfi)
@@ -13,11 +15,12 @@ library(rio)
 
 ##Load previously saved data (RData objects, for more details, please look at pre-processing.Rmd, cell_composition_correction.R and rem_conf_probes_adj_age.R
 ###Load necessary data
-bVals <- read_csv("$bVALS_SNPPROBES")
+bVals <- read_csv("$bVALS_SNPPROBES") %>%
+    tibble::column_to_rownames(var = "probe")
 metadata <- read.csv("$extensive_metadata", header = FALSE) %>%
     filter(V1 %in% c(colnames(bVals)))
 ####Match metadata order to columns in bVals
-metadata <- metadata[match(c(colnames(bVals)), metadata\$V1),]
+metadata <- metadata[match(setdiff(colnames(bVals), "probe"), metadata\$V1),]
 
 ##Choose the samples field
 ##Choosing only the field with information of the category of each samples (can be multiple)
@@ -29,17 +32,17 @@ Class <- metadata\$V2
 Method = "Bumphunter"
 
 ##Choose array type: ("EPIC" or "450K")
-ARRAY = "EPIC"
+ARRAY = "450K"
 
 ###Choose adjusted P value
 P = 0.05
 P = 1 # NOTE: for development
 
 ###Choose number of minimum probes by region
-Min = 5
+Min = 3 # 5 in the source
 
 ###Choose maximum gap between 2 probes in a region
-Max = 300
+Max = 1000 # 300 in the source
 
 ### Choose number of bootstraps
 B = 1000
@@ -74,8 +77,7 @@ DMRcate_manual_run = function(
                                     design = design,
                                     coef = ncol(design),
                                     analysis.type = "differential",
-                                    annotation = c(array = "IlluminaHumanMethylation450k",
-                                        annotation = "ilmn12.hg19"),
+                                    annotation = c(array = "IlluminaHumanMethylationEPIC", annotation = "ilm10b4.hg19"),
                                     what = "M")
     } else {
         myannotation <- cpg.annotate(datatype = "array",
@@ -84,8 +86,7 @@ DMRcate_manual_run = function(
                                     design = design,
                                     coef = ncol(design),
                                     analysis.type = "differential",
-                                    annotation = c(array = "IlluminaHumanMethylationEPIC",
-                                        annotation = "ilm10b4.hg19"),
+                                    annotation = c(array = "IlluminaHumanMethylation450k", annotation = "ilmn12.hg19"),
                                     what = "M")
     }
     dmrcoutput <- dmrcate(myannotation, lambda = lambda, C = C)
@@ -121,7 +122,7 @@ if (Method %in% c("Bumphunter", "ProbeLasso")) {
 if (Method == "DMRcate") {
     ##DMRcate computations
     dmrcate <- DMRcate_manual_run(
-    bVals[,Samples],
+    as.matrix(bVals[,Samples]),
     Class,
     ARRAY
     )

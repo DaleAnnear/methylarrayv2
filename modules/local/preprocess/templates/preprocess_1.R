@@ -15,7 +15,7 @@ for (file in gz_files) {
 mapping <- read.csv("${sample_mapping}", header = FALSE)
 
 # Set constants
-P = 0.01
+P = 0.1
 Norm_method = "preprocessQuantile"  # Choose normalization method: "preprocessFunnorm" or "preprocessQuantile"
 Sample_Name <- "Sample_Name"        # Column name that encodes the sample names
 
@@ -56,6 +56,7 @@ mVals <- getM(mSetSqFlt)
 bVals <- getBeta(mSetSqFlt)
 
 # Save results
+print(paste0('No of probes: ', nrow(bVals)))
 write.csv(as.data.frame(mVals), "mVals.csv")
 write.csv(as.data.frame(bVals), "bVals.csv")
 save(mSetSqFlt, file = "mSetSqFlt.RData")

@@ -22,7 +22,7 @@ Samples <- metadata\$V1
 Class <- metadata\$V2
 
 ##Choose array type: ("EPIC" or "450K")
-ARRAY = "EPIC"
+ARRAY = "450K"
 
 ###Choose number of minimum number of regions per block
 Min = 5

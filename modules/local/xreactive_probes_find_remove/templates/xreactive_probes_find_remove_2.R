@@ -48,7 +48,7 @@ probes <- rownames(mSetSqFlt)
 matches <- map_probes(
     probes, path = PATH,
     # chromosomes was 'all' but is reduced to 3 for testing
-    array = "EPIC", chromosomes = "$chrom_number", min_width = MIN, max_width = MAX, step_size = STEP,
+    array = "450k", chromosomes = "$chrom_number", min_width = MIN, max_width = MAX, step_size = STEP,
     allow_mismatch = FALSE, allow_INDEL = FALSE, verbose = TRUE
 )
 
