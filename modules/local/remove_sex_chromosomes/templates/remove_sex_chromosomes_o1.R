@@ -43,12 +43,12 @@ mSetSqFlt <- mSetSqFlt[keep,]
 mVals <- getM(mSetSqFlt)
 bVals <- getBeta(mSetSqFlt)
 
-# NOTE: Why is this here?
+# NOTE: Why is this here? - commented out as this is not related to removing sex chromosomes nor used later
 ##Calculate cell composition estimation
-cellCounts <- estimateCellCounts(rgSet) %>%
-    as.data.frame() %>%
-    rownames_to_column(var = "sample_id") %>%
-    write_csv("cell_count.csv")
+# cellCounts <- estimateCellCounts(rgSet) %>%
+#     as.data.frame() %>%
+#     rownames_to_column(var = "sample_id") %>%
+#     write_csv("cell_count.csv")
 
 ##Save all necessary R objects for later use
 save(mVals, file = "mVals.RData")

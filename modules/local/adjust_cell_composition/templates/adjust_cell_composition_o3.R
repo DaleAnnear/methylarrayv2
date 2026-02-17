@@ -30,8 +30,8 @@ bVals <- bVals_corrected\$CorrectedBeta
 mVals <- beta2m(bVals)
 
 ##Save all necessary R objects for later use
-write_csv(as.data.frame(mVals), "cmVals.cell_comp.csv")
-write_csv(as.data.frame(bVals), "cbVals.cell_comp.csv")
+write_csv(as.data.frame(mVals) %>% tibble::rownames_to_column(var = "probe"), "cmVals.cell_comp.csv")
+write_csv(as.data.frame(bVals) %>% tibble::rownames_to_column(var = "probe"), "cbVals.cell_comp.csv")
 
 # Dump versions
 pkgs <- c("readr","ChAMP","lumi")
