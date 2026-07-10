@@ -9,13 +9,13 @@
 ##Requirements
 library(readr)
 library(minfi)
-library(IlluminaHumanMethylationEPICmanifest)
-library(IlluminaHumanMethylationEPICanno.ilm10b2.hg19)
+library(IlluminaHumanMethylationEPICv2manifest)
+library(IlluminaHumanMethylationEPICv2anno.20a1.hg38)
 library(tibble)
 library(FlowSorted.Blood.EPIC)
 
 ##Constants
-annotation <- getAnnotation(IlluminaHumanMethylationEPICanno.ilm10b2.hg19)
+annotation <- getAnnotation(IlluminaHumanMethylationEPICv2anno.20a1.hg38)
 
 ##Extract list of cross-reactive probes found using the script xreactive_probes_finder.R
 #xprobes <- read_csv("x_reactive_probes.csv") # is this needed?
@@ -63,7 +63,7 @@ write_csv(as.data.frame(bVals) %>% tibble::rownames_to_column(var = 'probe'), "b
 write_csv(as.data.frame(mVals) %>% tibble::rownames_to_column(var = 'probe'), "mVals.csv")
 
 # Dump versions
-pkgs <- c("readr","minfi","IlluminaHumanMethylationEPICmanifest","IlluminaHumanMethylationEPICanno.ilm10b2.hg19","tibble","FlowSorted.Blood.EPIC")
+pkgs <- c("readr","minfi","IlluminaHumanMethylationEPICv2manifest","IlluminaHumanMethylationEPICv2anno.20a1.hg38","tibble","FlowSorted.Blood.EPIC")
 pkg_ver <- function(p) tryCatch(as.character(packageVersion(p)), error=function(e) "NA")
 rver <- paste(R.version\$major, R.version\$minor, sep=".")
 lines <- c(

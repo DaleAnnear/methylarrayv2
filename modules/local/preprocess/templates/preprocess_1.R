@@ -2,7 +2,7 @@
 
 # Load necessary libraries
 library(minfi)
-library(IlluminaHumanMethylationEPICmanifest)
+library(IlluminaHumanMethylationEPICv2manifest)
 
 # Unzip the idat files if they are gzipped
 gz_files <- list.files(getwd(), pattern="gz\$", recursive=TRUE, full.names=TRUE)
@@ -63,7 +63,7 @@ save(mSetSqFlt, file = "mSetSqFlt.RData")
 save(rgSet, file = "rgSet.RData")
 
 # Dump versions
-pkgs <- c("minfi","IlluminaHumanMethylationEPICmanifest")
+pkgs <- c("minfi","IlluminaHumanMethylationEPICv2manifest")
 pkg_ver <- function(p) tryCatch(as.character(packageVersion(p)), error=function(e) "NA")
 rver <- paste(R.version\$major, R.version\$minor, sep=".")
 lines <- c(

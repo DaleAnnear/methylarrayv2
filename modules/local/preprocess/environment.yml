@@ -3,7 +3,7 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  - bioconda::bioconductor-illuminahumanmethylationepicmanifest=0.3.0
+  - bioconda::bioconductor-illuminahumanmethylationepicv2manifest
   - bioconda::bioconductor-minfi=1.48.0
   - bioconda::bioconductor-illuminahumanmethylation450kmanifest=0.4.0
   - bioconda::bioconductor-IlluminaHumanMethylation450kanno.ilmn12.hg19=0.6.1

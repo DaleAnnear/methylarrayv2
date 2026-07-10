@@ -5,7 +5,7 @@ channels:
 dependencies:
   - conda-forge::r-dplyr
   - conda-forge::r-readr
-  - bioconda::bioconductor-illuminahumanmethylationepicmanifest
+  - bioconda::bioconductor-illuminahumanmethylationepicv2manifest
   - bioconda::bioconductor-minfi
   - bioconda::bioconductor-IlluminaHumanMethylation450kanno.ilmn12.hg19
   - conda-forge::r-tibble

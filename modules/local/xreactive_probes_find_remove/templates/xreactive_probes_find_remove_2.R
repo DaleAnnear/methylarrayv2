@@ -4,7 +4,7 @@
 ##output = mSet object (.RData format), normalized  M and beta values (csv format)
 
 library(minfi)
-library(IlluminaHumanMethylationEPICmanifest)
+library(IlluminaHumanMethylationEPICv2manifest)
 library(limma)
 library(missMethyl)
 library(IlluminaHumanMethylation450kmanifest)
@@ -48,7 +48,7 @@ probes <- rownames(mSetSqFlt)
 matches <- map_probes(
     probes, path = PATH,
     # chromosomes was 'all' but is reduced to 3 for testing
-    array = "450k", chromosomes = "$chrom_number", min_width = MIN, max_width = MAX, step_size = STEP,
+    array = "EPICv2", chromosomes = "$chrom_number", min_width = MIN, max_width = MAX, step_size = STEP,
     allow_mismatch = FALSE, allow_INDEL = FALSE, verbose = TRUE
 )
 
@@ -83,7 +83,7 @@ write_csv(as.data.frame(bVals), "bVals_noXprob.csv")
 save(mSetSqFlt, file = "mSetSqFlt_noXprob.RData")
 
 # Dump versions
-pkgs <- c("minfi","IlluminaHumanMethylationEPICmanifest","limma","missMethyl","IlluminaHumanMethylation450kmanifest","minfiData","DMRcate","dplyr","readr","DNAmCrosshyb")
+pkgs <- c("minfi","IlluminaHumanMethylationEPICv2manifest","limma","missMethyl","IlluminaHumanMethylation450kmanifest","minfiData","DMRcate","dplyr","readr","DNAmCrosshyb")
 pkg_ver <- function(p) tryCatch(as.character(packageVersion(p)), error=function(e) "NA")
 rver <- paste(R.version\$major, R.version\$minor, sep=".")
 lines <- c(
