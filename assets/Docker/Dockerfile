@@ -29,7 +29,7 @@ RUN R -e "install.packages(c('pkgdown', 'systemfonts', 'textshaping', 'ragg'), r
 
 RUN R -e "install.packages('devtools', repos='http://cran.rstudio.com/')"
 
-RUN R -e "BiocManager::install(c('minfi', 'IlluminaHumanMethylationEPICmanifest', 'limma', 'missMethyl', 'IlluminaHumanMethylation450kmanifest', 'minfiData', 'DMRcate', 'dplyr', 'readr'))"
+RUN R -e "BiocManager::install(c('minfi', 'IlluminaHumanMethylationEPICv2manifest', 'IlluminaHumanMethylationEPICv2anno.20a1.hg38', 'IlluminaHumanMethylationEPICmanifest', 'limma', 'missMethyl', 'IlluminaHumanMethylation450kmanifest', 'minfiData', 'DMRcate', 'dplyr', 'readr'))"
 
 # Install preprocessCore to patch preprocessCore issues
 RUN R -e "BiocManager::install('preprocessCore', configure.args = c(preprocessCore = '--disable-threading'), force=TRUE, update=TRUE, type='source')"
