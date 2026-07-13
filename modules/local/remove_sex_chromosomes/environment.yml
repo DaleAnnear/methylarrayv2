@@ -3,10 +3,10 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  - bioconda::bioconductor-illuminahumanmethylationepicmanifest=0.3.0
+  - bioconda::bioconductor-illuminahumanmethylationepicv2manifest
   - bioconda::bioconductor-minfi
   - bioconda::bioconductor-IlluminaHumanMethylation450kanno.ilmn12.hg19=0.6.1
-  - bioconda::bioconductor-illuminahumanmethylationepicanno.ilm10b2.hg19
+  - bioconda::bioconductor-illuminahumanmethylationepicv2anno.20a1.hg38
   - bioconda::bioconductor-illuminahumanmethylation450kmanifest=0.4.0
   - conda-forge::r-tibble
   - bioconda::bioconductor-flowsorted.blood.epic

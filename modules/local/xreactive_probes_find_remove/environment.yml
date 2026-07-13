@@ -3,7 +3,7 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  - bioconda::bioconductor-illuminahumanmethylationepicmanifest
+  - bioconda::bioconductor-illuminahumanmethylationepicv2manifest
   - bioconda::bioconductor-minfi
   - bioconda::bioconductor-illuminahumanmethylation450kmanifest
   - bioconda::bioconductor-IlluminaHumanMethylation450kanno.ilmn12.hg19

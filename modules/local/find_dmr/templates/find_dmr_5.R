@@ -32,7 +32,7 @@ Class <- metadata\$V2
 Method = "Bumphunter"
 
 ##Choose array type: ("EPIC" or "450K")
-ARRAY = "450K"
+ARRAY = "EPICv2"
 
 ###Choose adjusted P value
 P = 0.05
@@ -70,14 +70,14 @@ DMRcate_manual_run = function(
     myMs <- logit2(beta_matrix)
     myMs <- rmSNPandCH(myMs, dist = dist, mafcut = mafcut)
     design <- model.matrix(~ pheno)
-    if (arraytype == "EPIC") {
+    if (arraytype == "EPICv2") {
         myannotation <- cpg.annotate(datatype = "array",
                                     fdr = 1,
                                     myMs,
                                     design = design,
                                     coef = ncol(design),
                                     analysis.type = "differential",
-                                    annotation = c(array = "IlluminaHumanMethylationEPIC", annotation = "ilm10b4.hg19"),
+                                    annotation = c(array = "IlluminaHumanMethylationEPICv2", annotation = "20a1.hg38"),
                                     what = "M")
     } else {
         myannotation <- cpg.annotate(datatype = "array",

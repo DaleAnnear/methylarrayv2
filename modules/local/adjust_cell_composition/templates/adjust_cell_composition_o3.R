@@ -25,7 +25,7 @@ library(lumi)
 bVals <- as.matrix(read_csv("$bVALS_SNPPROBES") %>% tibble::column_to_rownames("probe"))
 
 ##Correct for cell composition using ChAMP
-bVals_corrected <- champ.refbase(beta = bVals, arraytype = "450K")
+bVals_corrected <- champ.refbase(beta = bVals, arraytype = "EPICv2")
 bVals <- bVals_corrected\$CorrectedBeta
 mVals <- beta2m(bVals)
 
